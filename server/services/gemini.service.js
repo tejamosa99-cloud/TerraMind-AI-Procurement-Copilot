@@ -14,6 +14,7 @@ function configuredModel() {
       code: "AI_NOT_CONFIGURED", status: 503,
     });
   }
+  console.log("GEMINI MODEL =", env.geminiModel);
   const client = new GoogleGenerativeAI(env.geminiApiKey);
   return client.getGenerativeModel({
     model: env.geminiModel,
