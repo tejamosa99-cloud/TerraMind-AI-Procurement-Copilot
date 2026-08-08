@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://terramind-ai-procurement-copilot.onrender.com/api/:path*"
+    }
+  ]
+}
