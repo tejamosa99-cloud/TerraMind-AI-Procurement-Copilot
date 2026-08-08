@@ -41,13 +41,13 @@ export default function AIReasoningTimeline({ active, steps = DEFAULT_STEPS, dur
                 (state === "done"
                   ? "border-emerald-500 bg-emerald-500 text-white"
                   : state === "active"
-                  ? "border-blue-400 bg-blue-50 text-blue-600"
+                  ? "border-brand-400 bg-brand-50 text-brand-600"
                   : "border-slate-200 bg-white text-slate-400")
               }
             >
-              {state === "done" ? "✓" : state === "active" ? <span className="h-2 w-2 animate-pulse rounded-full bg-blue-500" /> : ""}
+              {state === "done" ? "✓" : state === "active" ? <span className="h-2 w-2 animate-pulse rounded-full bg-brand-500" /> : ""}
             </span>
-            <span className={state === "pending" ? "text-slate-400" : state === "active" ? "font-semibold text-blue-700" : "text-slate-600"}>
+            <span className={state === "pending" ? "text-slate-400" : state === "active" ? "font-semibold text-brand-700" : "text-slate-600"}>
               {step}
             </span>
           </div>

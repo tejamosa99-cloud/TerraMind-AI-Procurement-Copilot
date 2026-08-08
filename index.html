@@ -16,6 +16,28 @@
               sans: ['Inter', 'system-ui', 'sans-serif'],
               mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
             },
+            colors: {
+              // Accenture-inspired purple system. brand-500/700 are the two
+              // named brand hexes; the rest of the scale is derived so every
+              // existing blue-N utility class maps 1:1 onto a purple one.
+              brand: {
+                50: '#F8F5FF',
+                100: '#F0E8FF',
+                200: '#DCC8FF',
+                300: '#C29CFF',
+                400: '#B166FF',
+                500: '#A100FF',
+                600: '#8B00E6',
+                700: '#6F00FF',
+                800: '#5800CC',
+                900: '#3D0091',
+              },
+              accent: '#7F56D9',
+            },
+            boxShadow: {
+              'glow': '0 0 0 1px rgba(161,0,255,0.08), 0 8px 24px -8px rgba(111,0,255,0.25)',
+              'glow-md': '0 0 0 1px rgba(161,0,255,0.1), 0 12px 32px -10px rgba(111,0,255,0.35)',
+            },
           },
         },
       }
@@ -27,6 +49,31 @@
     <style>
       body { font-family: 'Inter', sans-serif; }
       * { -webkit-font-smoothing: antialiased; }
+
+      @keyframes ai-pulse-ring {
+        0%   { box-shadow: 0 0 0 0 rgba(161,0,255,0.35); }
+        70%  { box-shadow: 0 0 0 6px rgba(161,0,255,0); }
+        100% { box-shadow: 0 0 0 0 rgba(161,0,255,0); }
+      }
+      .ai-pulse { animation: ai-pulse-ring 2.2s cubic-bezier(0.4,0,0.6,1) infinite; }
+
+      @keyframes shimmer-sweep {
+        100% { transform: translateX(100%); }
+      }
+      .shimmer::after {
+        content: '';
+        position: absolute; inset: 0;
+        transform: translateX(-100%);
+        background: linear-gradient(90deg, transparent, rgba(161,0,255,0.08), transparent);
+        animation: shimmer-sweep 1.6s infinite;
+      }
+
+      .bg-blob {
+        position: absolute;
+        border-radius: 9999px;
+        filter: blur(64px);
+        pointer-events: none;
+      }
     </style>
   </head>
   <body class="bg-slate-50 text-slate-900">

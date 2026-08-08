@@ -5,7 +5,7 @@ import React from "react";
 export function AISection({ icon, label, children }) {
   return (
     <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-      <div className="text-xs font-semibold uppercase tracking-wider text-blue-600">
+      <div className="text-xs font-semibold uppercase tracking-wider text-brand-600">
         {icon} {label}
       </div>
       <div className="mt-2 text-sm leading-relaxed text-slate-700">{children}</div>
@@ -19,7 +19,7 @@ export function AIBulletList({ items }) {
     <ul className="space-y-1.5">
       {items.map((item, i) => (
         <li key={i} className="flex gap-2 text-sm leading-relaxed text-slate-700">
-          <span className="text-blue-500">&#9656;</span>
+          <span className="text-brand-500">&#9656;</span>
           <span>{item}</span>
         </li>
       ))}

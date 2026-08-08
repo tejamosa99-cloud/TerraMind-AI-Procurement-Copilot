@@ -71,28 +71,28 @@ const IMPACT_TONE = { Low: "text-emerald-600", Medium: "text-amber-600", High: "
 
 // ════════════════════════════════ SHARED UI ════════════════════════════
 function Badge({ children, tone = "violet" }) {
-  const t = { violet: "border-blue-200 bg-blue-50 text-blue-700",
+  const t = { violet: "border-brand-200 bg-brand-50 text-brand-700",
     green: "border-emerald-200 bg-emerald-50 text-emerald-700",
-    blue: "border-blue-200 bg-blue-100 text-blue-800",
-    cyan: "border-blue-200 bg-blue-50 text-blue-700" }[tone];
+    blue: "border-brand-200 bg-brand-100 text-brand-800",
+    cyan: "border-brand-200 bg-brand-50 text-brand-700" }[tone];
   return <span className={"rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider " + t}>{children}</span>;
 }
 function AgentTag({ n, label }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1">
-      <span className="h-2 w-2 rounded-full bg-blue-600" />
-      <span className="text-xs font-bold uppercase tracking-widest text-blue-700">Agent {n} &middot; {label}</span>
+    <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1">
+      <span className="h-2 w-2 rounded-full bg-brand-600" />
+      <span className="text-xs font-bold uppercase tracking-widest text-brand-700">Agent {n} &middot; {label}</span>
     </span>
   );
 }
 function Panel({ children, className = "" }) {
-  return <div className={"rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow duration-200 hover:shadow-md " + className}>{children}</div>;
+  return <div className={"rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md " + className}>{children}</div>;
 }
 
 // Accenture-style operating model: every agent is one of three roles. Visual
 // label only — does not affect navigation or the agent's actual behavior.
 const AGENT_ROLES = {
-  1: { role: "FRONT AGENT", subtitle: "Executive Intelligence", tone: "border-blue-200 bg-blue-50 text-blue-700" },
+  1: { role: "FRONT AGENT", subtitle: "Executive Intelligence", tone: "border-brand-200 bg-brand-50 text-brand-700" },
   2: { role: "ASSIST AGENT", subtitle: "Should-Cost Intelligence", tone: "border-emerald-200 bg-emerald-50 text-emerald-700" },
   3: { role: "ASSIST AGENT", subtitle: "Negotiation & VAVE Intelligence", tone: "border-emerald-200 bg-emerald-50 text-emerald-700" },
   4: { role: "ASSIST AGENT", subtitle: "Executive Communication", tone: "border-emerald-200 bg-emerald-50 text-emerald-700" },
@@ -113,17 +113,17 @@ function AgentRoleBadge({ n }) {
 const TIMELINE_LABELS = ["Executive Intelligence", "Should Cost", "Negotiation", "Executive Approval", "Impact Tracking"];
 function AgentStatusTimeline({ step }) {
   return (
-    <div className="mb-6 flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div className="mb-4 flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 shadow-sm">
       {TIMELINE_LABELS.map((label, i) => {
         const n = i + 1;
         const state = n < step ? "done" : n === step ? "current" : "pending";
         const tone = state === "done" ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-          : state === "current" ? "border-blue-300 bg-blue-50 text-blue-700"
+          : state === "current" ? "border-brand-300 bg-brand-50 text-brand-700"
           : "border-slate-200 bg-slate-50 text-slate-400";
-        const dot = state === "done" ? "bg-emerald-500" : state === "current" ? "bg-blue-500" : "bg-slate-300";
+        const dot = state === "done" ? "bg-emerald-500" : state === "current" ? "bg-brand-500" : "bg-slate-300";
         return (
           <React.Fragment key={label}>
-            <span className={"flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-bold " + tone}>
+            <span className={"flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-bold " + tone}>
               <span className={"h-2 w-2 rounded-full " + dot} />
               {label}
             </span>
@@ -143,20 +143,20 @@ function HumanApprovalPanel({ title, children, approved, onApprove, approveLabel
   return (
     <Panel className={approved ? "border-emerald-200 bg-emerald-50/40" : "border-amber-200 bg-amber-50/40"}>
       <Badge tone={approved ? "green" : "violet"}>{approved ? "Approved" : "Human Approval Required"}</Badge>
-      <h3 className="mt-2 text-lg font-bold text-slate-900">{title}</h3>
+      <h3 className="mt-1 text-lg font-bold text-slate-900">{title}</h3>
       {children && <div className="mt-1 text-sm text-slate-600">{children}</div>}
-      <div className="mt-4 flex flex-wrap gap-3">
+      <div className="mt-3 flex flex-wrap gap-3">
         <button onClick={onApprove} disabled={approved}
-          className={"rounded-lg px-5 py-2.5 font-semibold text-white shadow-sm transition-colors duration-150 " + (approved ? "cursor-not-allowed bg-emerald-300" : "bg-emerald-600 hover:bg-emerald-700")}>
+          className={"rounded-lg px-5 py-2 font-semibold text-white shadow-sm transition-colors duration-150 " + (approved ? "cursor-not-allowed bg-emerald-300" : "bg-emerald-600 hover:bg-emerald-700")}>
           &#9989; {approved ? "Approved" : approveLabel}
         </button>
         {onRegenerate && (
-          <button onClick={onRegenerate} className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-blue-400 hover:bg-blue-50">
+          <button onClick={onRegenerate} className="rounded-lg border border-slate-300 bg-white px-5 py-2 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-brand-400 hover:bg-brand-50">
             &#128260; {regenerateLabel}
           </button>
         )}
         {onCancel && (
-          <button onClick={onCancel} className="rounded-lg border border-red-200 bg-red-50 px-5 py-2.5 font-semibold text-red-600 shadow-sm transition-colors duration-150 hover:bg-red-100">
+          <button onClick={onCancel} className="rounded-lg border border-red-200 bg-red-50 px-5 py-2 font-semibold text-red-600 shadow-sm transition-colors duration-150 hover:bg-red-100">
             &#10005; {cancelLabel}
           </button>
         )}
@@ -169,50 +169,16 @@ function HumanApprovalPanel({ title, children, approved, onApprove, approveLabel
 // output is ready, pointing the human at the next agent in the pipeline.
 function NextStepCard({ text, actionLabel, onAction }) {
   return (
-    <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
+    <div className="rounded-2xl border border-brand-200 bg-brand-50 p-4 shadow-glow">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <div className="text-xs font-bold uppercase tracking-wider text-blue-600">Recommended Next Step</div>
+          <div className="text-xs font-bold uppercase tracking-wider text-brand-600">Recommended Next Step</div>
           <p className="mt-1 text-sm text-slate-700">{text}</p>
         </div>
-        <button onClick={onAction} className="shrink-0 rounded-lg bg-blue-600 px-5 py-2.5 font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-blue-700">
+        <button onClick={onAction} className="shrink-0 rounded-lg bg-gradient-to-r from-brand-500 to-brand-700 px-4 py-2 text-[13px] font-semibold text-white shadow-sm transition-all duration-150 hover:shadow-glow hover:brightness-110">
           {actionLabel} &rarr;
         </button>
       </div>
-    </div>
-  );
-}
-
-// Consistent Previous/Next Agent navigation, present on every agent page and
-// pinned to the bottom of the viewport as the user scrolls. Reuses the same
-// go() step-guard as every other in-app navigation control, so selection
-// requirements (e.g. "pick a part before Agent 2") stay enforced.
-function AgentNav({ step, go, approvals, toast }) {
-  // Steps 2 and 3 require human approval in-page before progressing — this
-  // sticky shortcut must honor the same gate, otherwise it would let someone
-  // skip the approval panel entirely by using the footer instead of the
-  // in-content "Move to Agent N" button.
-  function handleNext() {
-    if ((step === 2 || step === 3) && !approvals?.[step]) {
-      toast?.("Human approval required before moving to the next agent.");
-      return;
-    }
-    go(step + 1);
-  }
-  return (
-    <div className="sticky bottom-4 z-20 mt-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white/95 px-4 py-3 shadow-lg backdrop-blur">
-      {step > 1 ? (
-        <button onClick={() => go(step - 1)}
-          className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-blue-400 hover:bg-blue-50">
-          &larr; Previous Agent
-        </button>
-      ) : <span />}
-      {step < 5 ? (
-        <button onClick={handleNext}
-          className="rounded-lg bg-blue-600 px-6 py-2.5 font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-blue-700">
-          Next Agent &rarr;
-        </button>
-      ) : <span />}
     </div>
   );
 }
@@ -253,17 +219,17 @@ function EditAnalysisModal({ analysis, onSave, onClose }) {
           <label className="block">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">Part Name</span>
             <input value={form.partName} onChange={set("partName")}
-              className="mt-1 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" />
+              className="mt-1 w-full rounded-xl border border-slate-300 bg-white px-4 py-2 text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100" />
           </label>
           <label className="block">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">Supplier</span>
             <input value={form.supplier} onChange={set("supplier")}
-              className="mt-1 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" />
+              className="mt-1 w-full rounded-xl border border-slate-300 bg-white px-4 py-2 text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100" />
           </label>
           <label className="block">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">Domain</span>
             <select value={form.domain} onChange={set("domain")}
-              className="mt-1 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">
+              className="mt-1 w-full rounded-xl border border-slate-300 bg-white px-4 py-2 text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100">
               {DOMAINS.filter((x) => x.key !== "all").map((x) => <option key={x.key} value={x.label}>{x.label}</option>)}
             </select>
           </label>
@@ -271,23 +237,23 @@ function EditAnalysisModal({ analysis, onSave, onClose }) {
             <label className="block">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">Expected Savings ($M)</span>
               <input type="number" step="0.01" value={form.expectedSavings} onChange={set("expectedSavings")}
-                className="mt-1 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" />
+                className="mt-1 w-full rounded-xl border border-slate-300 bg-white px-4 py-2 text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100" />
             </label>
             <label className="block">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">Status</span>
               <select value={form.status} onChange={set("status")}
-                className="mt-1 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100">
+                className="mt-1 w-full rounded-xl border border-slate-300 bg-white px-4 py-2 text-slate-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100">
                 {ANALYSIS_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
             </label>
           </div>
         </div>
 
-        <div className="mt-5 flex justify-end gap-3">
-          <button onClick={onClose} className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-blue-400 hover:bg-blue-50">
+        <div className="mt-4 flex justify-end gap-3">
+          <button onClick={onClose} className="rounded-lg border border-slate-300 bg-white px-5 py-2 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-brand-400 hover:bg-brand-50">
             Cancel
           </button>
-          <button onClick={handleSave} className="rounded-lg bg-blue-600 px-5 py-2.5 font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-blue-700">
+          <button onClick={handleSave} className="rounded-lg bg-gradient-to-r from-brand-500 to-brand-700 px-5 py-2 text-[13px] font-semibold text-white shadow-sm transition-all duration-150 hover:shadow-glow hover:brightness-110">
             Save Changes
           </button>
         </div>
@@ -372,9 +338,9 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
   const rubberChange = market.data?.rubber?.change24hPct;
 
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      <div className="space-y-6">
-        <div className="rounded-xl border border-blue-100 bg-blue-50 p-5">
+    <div className="grid gap-4 lg:grid-cols-2">
+      <div className="space-y-4">
+        <div className="rounded-xl border border-brand-100 bg-brand-50 p-4">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2">
               <AgentTag n="1" label="Executive Intelligence" />
@@ -388,8 +354,8 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
             {[
               ["Steel Price", steelChange == null ? "\u2026" : (steelChange >= 0 ? "\u2191 +" : "\u2193 ") + steelChange + "%", steelChange >= 0 ? "text-red-600" : "text-emerald-600"],
               ["Rubber Price", rubberChange == null ? "\u2026" : (rubberChange >= 0 ? "\u2191 +" : "\u2193 ") + rubberChange + "%", rubberChange >= 0 ? "text-red-600" : "text-emerald-600"],
-              ["Supplier Quotes", "3 Updated", "text-blue-600"], ["Saved Processes", saved.length + " Active", "text-emerald-600"],
-              ["Forecast Savings", m$(forecast), "text-blue-600"]].map(([l, v, c]) => (
+              ["Supplier Quotes", "3 Updated", "text-brand-600"], ["Saved Processes", saved.length + " Active", "text-emerald-600"],
+              ["Forecast Savings", m$(forecast), "text-brand-600"]].map(([l, v, c]) => (
               <div key={l} className="rounded-xl border border-slate-200 bg-slate-50 p-3">
                 <div className="text-xs text-slate-500">{l}</div>
                 <div className={"mt-1 text-lg font-bold " + c}>{v}</div>
@@ -416,10 +382,21 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
           generateLabel="Generate AI Brief"
           idleHint="Generate an executive summary, strategic recommendation, expected business impact and an AI-prioritized focus list."
           copyText={(d) => d && [d.executiveSummary, "", "Strategic Recommendation: " + d.strategicRecommendation, "Recommended Action: " + d.recommendedAction].join("\n")}
+          summary={(d) => (
+            <div className="space-y-3">
+              <p className="text-sm leading-relaxed text-slate-700">{d.executiveSummary}</p>
+              <div className="grid grid-cols-3 gap-2">
+                <AIStat label="Est. Savings" value={d.estimatedSavingsM != null ? m$(d.estimatedSavingsM) : "—"} tone="text-emerald-600" />
+                <AIStat label="Risk" value={d.riskLevel || "—"} tone={IMPACT_TONE[d.riskLevel] || "text-slate-900"} />
+                <AIStat label="Confidence" value={d.confidenceScore != null ? d.confidenceScore + "%" : "—"} tone="text-brand-600" />
+              </div>
+              <div className="text-xs text-slate-500"><b className="text-slate-700">Top opportunity:</b> {d.topOpportunity}</div>
+            </div>
+          )}
           renderContent={(d) => (
-            <div className="space-y-5">
+            <div className="space-y-4">
               <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-blue-600">Section 1 &middot; Executive Summary</div>
+                <div className="text-xs font-bold uppercase tracking-wider text-brand-600">Section 1 &middot; Executive Summary</div>
                 <div className="mt-2 space-y-3">
                   <AISection icon="📋" label="Market &amp; Procurement Summary">{d.executiveSummary}</AISection>
                   <div className="grid gap-3 md:grid-cols-2">
@@ -432,18 +409,18 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
               </div>
 
               <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-blue-600">Section 2 &middot; Strategic Recommendation</div>
+                <div className="text-xs font-bold uppercase tracking-wider text-brand-600">Section 2 &middot; Strategic Recommendation</div>
                 <div className="mt-2">
                   <AISection icon="🧭" label="Why Act Today &amp; Preferred Sourcing Strategy">{d.strategicRecommendation}</AISection>
                 </div>
               </div>
 
               <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-blue-600">Section 3 &middot; Expected Business Impact</div>
+                <div className="text-xs font-bold uppercase tracking-wider text-brand-600">Section 3 &middot; Expected Business Impact</div>
                 <div className="mt-2 grid grid-cols-2 gap-3 md:grid-cols-4">
                   <AIStat label="Estimated Savings" value={d.estimatedSavingsM != null ? m$(d.estimatedSavingsM) : "—"} tone="text-emerald-600" />
                   <AIStat label="Risk Level" value={d.riskLevel || "—"} tone={IMPACT_TONE[d.riskLevel] || "text-slate-900"} />
-                  <AIStat label="Confidence" value={d.confidenceScore != null ? d.confidenceScore + "%" : "—"} tone="text-blue-600" />
+                  <AIStat label="Confidence" value={d.confidenceScore != null ? d.confidenceScore + "%" : "—"} tone="text-brand-600" />
                   <AIStat label="Implementation Priority" value={d.implementationPriority || "—"} tone={IMPACT_TONE[d.implementationPriority] || "text-slate-900"} />
                 </div>
               </div>
@@ -453,7 +430,7 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
                   className="flex w-full flex-wrap items-center justify-between gap-3 px-4 py-4 text-left">
                   <div>
                     <h3 className="flex items-center gap-2 text-lg font-bold text-slate-900">
-                      <span className={"inline-block text-base text-blue-600 transition-transform duration-200 " + (focusListOpen ? "rotate-0" : "-rotate-90")}>&#9660;</span>
+                      <span className={"inline-block text-base text-brand-600 transition-transform duration-200 " + (focusListOpen ? "rotate-0" : "-rotate-90")}>&#9660;</span>
                       AI Priority Focus List
                     </h3>
                     <p className="mt-1 text-sm text-slate-500">{(d.priorityFocusList || []).length} AI-ranked parts &middot; commodity trend, supplier risk, expected savings and portfolio importance</p>
@@ -472,7 +449,7 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
                           <div key={item.partName + i} className="rounded-xl border border-slate-200 bg-slate-50 p-3">
                             <div className="flex flex-wrap items-center justify-between gap-2">
                               <div className="flex items-center gap-2">
-                                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white">#{i + 1}</span>
+                                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-600 text-xs font-bold text-white">#{i + 1}</span>
                                 <span className="font-bold text-slate-900">{item.partName}</span>
                               </div>
                               <Badge tone="blue">Priority Score {item.priorityScore}</Badge>
@@ -489,7 +466,7 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
                                 <span className="text-slate-500">Timeline: {item.timeline}</span>
                               </div>
                               <button onClick={() => part && openPartInAgent2(part)} disabled={!part}
-                                className="shrink-0 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50">
+                                className="shrink-0 rounded-lg bg-gradient-to-r from-brand-500 to-brand-700 px-4 py-2 text-[13px] font-semibold text-white shadow-sm transition-all duration-150 hover:shadow-glow hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50">
                                 Open Analysis &rarr;
                               </button>
                             </div>
@@ -528,8 +505,8 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
           <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
             {[["Total Analyses", metrics.totalAnalyses, "text-slate-900"],
               ["Savings Identified", m$(metrics.savingsIdentified), "text-emerald-600"],
-              ["Avg. AI Confidence", metrics.averageConfidence == null ? "\u2014" : metrics.averageConfidence + "%", "text-blue-600"],
-              ["Active Recommendations", metrics.activeRecommendations, "text-blue-600"]].map(([l, v, c]) => (
+              ["Avg. AI Confidence", metrics.averageConfidence == null ? "\u2014" : metrics.averageConfidence + "%", "text-brand-600"],
+              ["Active Recommendations", metrics.activeRecommendations, "text-brand-600"]].map(([l, v, c]) => (
               <div key={l} className="rounded-xl border border-slate-200 bg-slate-50 p-3">
                 <div className="text-xs text-slate-500">{l}</div>
                 <div className={"mt-1 text-lg font-bold " + c}>{v}</div>
@@ -562,7 +539,7 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
                   </div>
                   <div className="flex shrink-0 gap-2">
                     <button onClick={() => setEditingAnalysis(a)}
-                      className="rounded-lg border border-slate-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-blue-400 hover:bg-blue-50">
+                      className="rounded-lg border border-slate-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-brand-400 hover:bg-brand-50">
                       &#9998; Edit
                     </button>
                     <button onClick={() => removeAnalysis?.(a.analysisId)}
@@ -585,7 +562,7 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
         )}
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         <Panel>
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
@@ -599,7 +576,7 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
             {DOMAINS.map((x) => (
               <button key={x.key} onClick={() => setDom(x.key)}
                 className={"rounded-full px-3 py-1.5 text-sm font-bold " +
-                  (dom === x.key ? "bg-blue-600 text-white shadow-sm" : "border border-slate-300 bg-white text-slate-600 hover:border-blue-400 hover:bg-blue-50")}>
+                  (dom === x.key ? "bg-brand-600 text-white shadow-sm" : "border border-slate-300 bg-white text-slate-600 hover:border-brand-400 hover:bg-brand-50")}>
                 {x.label} (${x.spend}M)
               </button>
             ))}
@@ -607,16 +584,16 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
 
           <div className="mt-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
             <div>
-              <div className="font-bold text-blue-600">{d.label}</div>
+              <div className="font-bold text-brand-600">{d.label}</div>
               <div className="text-sm text-slate-500">Main Risk: {d.risk}</div>
             </div>
             <div className="text-sm text-slate-600">
-              Comm: <b className="text-emerald-600">{d.comm}</b> | VAVE: <b className="text-blue-600">{d.vave}</b>
+              Comm: <b className="text-emerald-600">{d.comm}</b> | VAVE: <b className="text-brand-600">{d.vave}</b>
             </div>
           </div>
 
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search parts, suppliers or risks..."
-            className="mt-4 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-colors duration-150 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" />
+            className="mt-4 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-colors duration-150 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100" />
 
           <div className="mt-3 max-h-80 space-y-2 overflow-y-auto pr-1">
             {list.map((p) => {
@@ -625,12 +602,12 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
               return (
                 <button key={p.id} onClick={() => setSelected(p)}
                   className={"flex w-full items-center justify-between gap-3 rounded-xl border p-3 text-left " +
-                    (sel ? "border-l-4 border-blue-500 bg-blue-50" : "border-slate-200 bg-slate-50 hover:border-slate-300")}>
+                    (sel ? "border-l-4 border-brand-500 bg-brand-50" : "border-slate-200 bg-slate-50 hover:border-slate-300")}>
                   <span className="min-w-0">
                     <span className="block font-bold text-slate-900">
                       {p.name} {wasSaved && <span className="text-xs font-normal text-emerald-600">[Saved]</span>}
                     </span>
-                    <span className="block text-sm text-slate-500">{p.supplier} &middot; <span className="text-blue-600">{DOM[p.domain].label}</span></span>
+                    <span className="block text-sm text-slate-500">{p.supplier} &middot; <span className="text-brand-600">{DOM[p.domain].label}</span></span>
                   </span>
                   <span className="shrink-0 text-right">
                     <span className="block font-bold text-slate-900">${p.price}</span>
@@ -643,7 +620,7 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
         </Panel>
 
         {selected && (
-          <Panel className="border-blue-200">
+          <Panel className="border-brand-200">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <Badge tone="cyan">Ready for Analysis</Badge>
@@ -653,13 +630,13 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
                 </p>
               </div>
               <button onClick={() => go(2)}
-                className="rounded-lg bg-blue-600 px-6 py-2.5 font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-blue-700">
+                className="rounded-lg bg-gradient-to-r from-brand-500 to-brand-700 px-6 py-2 text-[13px] font-semibold text-white shadow-sm transition-all duration-150 hover:shadow-glow hover:brightness-110">
                 Analyze Part &rarr; Move to Agent 2
               </button>
             </div>
             <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
               {[["Current Price", "$" + selected.price, "text-slate-900"], ["Potential Savings", m$(potOf(selected)), "text-emerald-600"],
-                ["Annual Spend", "$" + selected.spend.toFixed(2) + "M", "text-slate-900"], ["AI Should Cost", "$" + selected.shouldCost, "text-blue-600"]].map(([l, v, c]) => (
+                ["Annual Spend", "$" + selected.spend.toFixed(2) + "M", "text-slate-900"], ["AI Should Cost", "$" + selected.shouldCost, "text-brand-600"]].map(([l, v, c]) => (
                 <div key={l} className="rounded-xl border border-slate-200 bg-slate-50 p-3">
                   <div className="text-xs text-slate-500">{l}</div>
                   <div className={"mt-1 text-2xl font-bold " + c}>{v}</div>
@@ -675,7 +652,7 @@ function Agent1({ selected, setSelected, go, saved, removeSaved, forecast, analy
 
 // ═══════════════════════ AGENT 2 · COST INTELLIGENCE ════════════════════
 function Agent2({ part, go, approved, setApproved }) {
-  const mix = [["Material", 42, "bg-blue-600"], ["Machining", 28, "bg-blue-400"], ["Assembly", 15, "bg-teal-400"],
+  const mix = [["Material", 42, "bg-brand-600"], ["Machining", 28, "bg-brand-400"], ["Assembly", 15, "bg-teal-400"],
     ["Overheads", 10, "bg-amber-500"], ["Logistics", 5, "bg-emerald-400"]];
   const d = DOM[part.domain];
 
@@ -704,14 +681,14 @@ function Agent2({ part, go, approved, setApproved }) {
   }
 
   const commodityMix = [
-    ["Steel / Alloy", 54, "bg-blue-500", market.data?.steel],
-    ["Iron", 26, "bg-blue-400", market.data?.iron],
+    ["Steel / Alloy", 54, "bg-brand-500", market.data?.steel],
+    ["Iron", 26, "bg-brand-400", market.data?.iron],
     ["Rubber", 12, "bg-emerald-500", market.data?.rubber],
     ["Other", 8, "bg-slate-500", null],
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <Panel>
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -726,17 +703,17 @@ function Agent2({ part, go, approved, setApproved }) {
           </div>
           <div className="text-right">
             <div className="text-sm text-slate-500">Domain: {d.label}</div>
-            <div className="text-2xl font-bold text-blue-600">{part.name}</div>
+            <div className="text-2xl font-bold text-brand-600">{part.name}</div>
             <div className="text-sm text-slate-500">{part.supplier} &middot; Spend: ${part.spend.toFixed(2)}M</div>
           </div>
         </div>
       </Panel>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2">
         <Panel>
           <h3 className="text-lg font-bold text-slate-900">Cost Breakdown Structure</h3>
           <p className="text-sm text-slate-500">Unit Price: ${part.price}</p>
-          <div className="mt-5 flex h-6 overflow-hidden rounded-full">
+          <div className="mt-4 flex h-6 overflow-hidden rounded-full">
             {mix.map(([n, v, c]) => <div key={n} className={c} style={{ width: v + "%" }} />)}
           </div>
           <div className="mt-4 flex flex-wrap gap-4">
@@ -752,7 +729,7 @@ function Agent2({ part, go, approved, setApproved }) {
           <h3 className="text-lg font-bold text-slate-900">Should Cost Gap Analysis</h3>
           <div className="mt-4 grid grid-cols-3 gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
             <div><div className="text-sm text-slate-500">Supplier Quote</div><div className="text-[32px] font-bold tracking-tight text-slate-900">${part.price}</div></div>
-            <div><div className="text-sm text-slate-500">AI Should Cost</div><div className="text-3xl font-bold text-blue-600">${part.shouldCost}</div></div>
+            <div><div className="text-sm text-slate-500">AI Should Cost</div><div className="text-3xl font-bold text-brand-600">${part.shouldCost}</div></div>
             <div className="rounded-xl border border-red-200 bg-red-50 p-2 text-center">
               <div className="text-xs uppercase tracking-wider text-red-600">Unjustified Gap</div>
               <div className="text-3xl font-bold text-red-600">{part.gapPct}%</div>
@@ -764,11 +741,11 @@ function Agent2({ part, go, approved, setApproved }) {
         </Panel>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-4 lg:grid-cols-3">
         <Panel>
           <h3 className="text-base font-bold text-slate-900">Supplier Scorecard</h3>
           <div className="mt-3 space-y-3">
-            {[["Quality (PPM)", 88, "bg-emerald-500"], ["On-Time Delivery", 94, "bg-blue-500"], ["Cost Competitiveness", 62, "bg-amber-500"], ["Responsiveness", 76, "bg-blue-300"]].map(([l, v, c]) => (
+            {[["Quality (PPM)", 88, "bg-emerald-500"], ["On-Time Delivery", 94, "bg-brand-500"], ["Cost Competitiveness", 62, "bg-amber-500"], ["Responsiveness", 76, "bg-brand-300"]].map(([l, v, c]) => (
               <div key={l}>
                 <div className="flex justify-between text-sm"><span className="text-slate-600">{l}</span><span className="font-bold text-slate-900">{v}%</span></div>
                 <div className="mt-1 h-2 overflow-hidden rounded-full bg-slate-200"><div className={"h-2 " + c} style={{ width: v + "%" }} /></div>
@@ -826,9 +803,21 @@ function Agent2({ part, go, approved, setApproved }) {
               data={why.data}
               onGenerate={handleExplainCost}
               generateLabel="Explain Cost Drivers"
+              regenerateInApprovalPanel
               idleHint="Generating an AI cost driver explanation…"
               className="border-slate-200"
               copyText={(d) => d && [d.recommendation].join("\n")}
+              summary={(d) => (
+                <div className="space-y-2">
+                  <p className="text-sm leading-relaxed text-slate-700">{d.recommendation}</p>
+                  {(d.materialDrivers?.[0] || d.commercialIdeas?.[0]) && (
+                    <ul className="space-y-1 text-xs text-slate-500">
+                      {d.materialDrivers?.[0] && <li>▸ {d.materialDrivers[0]}</li>}
+                      {d.commercialIdeas?.[0] && <li>▸ {d.commercialIdeas[0]}</li>}
+                    </ul>
+                  )}
+                </div>
+              )}
               renderContent={(d) => (
                 <div className="space-y-3">
                   <div className="grid gap-3 md:grid-cols-2">
@@ -869,19 +858,6 @@ function Agent2({ part, go, approved, setApproved }) {
       {approved && (
         <NextStepCard text="Develop negotiation strategy." actionLabel="Open Agent 3" onAction={() => go(3)} />
       )}
-
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <button onClick={() => go(1)} className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-blue-400 hover:bg-blue-50">
-          &larr; Back to Agent 1
-        </button>
-        <div className="text-right">
-          <button onClick={() => go(3)} disabled={!approved}
-            className={"rounded-lg px-6 py-2.5 font-semibold text-white shadow-sm transition-colors duration-150 " + (approved ? "bg-blue-600 hover:bg-blue-700" : "cursor-not-allowed bg-slate-300")}>
-            Evaluate Levers &rarr; Move to Agent 3
-          </button>
-          {!approved && <p className="mt-1 text-xs text-slate-500">Generate the AI cost driver explanation above and approve it to continue.</p>}
-        </div>
-      </div>
     </div>
   );
 }
@@ -943,7 +919,7 @@ function Agent3({ part, lever, setLever, go, recordAnalysis, approved, setApprov
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <Panel>
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -968,7 +944,7 @@ function Agent3({ part, lever, setLever, go, recordAnalysis, approved, setApprov
             <thead className="sticky top-0 z-10">
               <tr className="border-b border-slate-200 bg-slate-50">
                 {["LEVER", "EXPECTED SAVINGS", "TIME TO VALUE", "ENGINEERING EFFORT", "CONFIDENCE SCORE", "ACTION"].map((h) => (
-                  <th key={h} className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">{h}</th>
+                  <th key={h} className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">{h}</th>
                 ))}
               </tr>
             </thead>
@@ -976,19 +952,19 @@ function Agent3({ part, lever, setLever, go, recordAnalysis, approved, setApprov
               {LEVERS.map((l) => {
                 const isSel = sel.key === l.key;
                 return (
-                  <tr key={l.key} className={"border-b border-slate-200 transition-colors duration-150 " + (isSel ? "border-l-4 border-l-blue-500 bg-blue-50" : "odd:bg-white even:bg-slate-50/60 hover:bg-blue-50/50")}>
-                    <td className="px-3 py-4">
-                      <span className={"font-bold " + (isSel ? "text-blue-700" : "text-slate-900")}>{l.name}</span>
-                      {l.badge && <span className="ml-2 rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-xs font-bold text-blue-700">{l.badge}</span>}
+                  <tr key={l.key} className={"border-b border-slate-200 transition-colors duration-150 " + (isSel ? "border-l-4 border-l-brand-500 bg-brand-50" : "odd:bg-white even:bg-slate-50/60 hover:bg-brand-50/50")}>
+                    <td className="px-3 py-2">
+                      <span className={"font-bold " + (isSel ? "text-brand-700" : "text-slate-900")}>{l.name}</span>
+                      {l.badge && <span className="ml-2 rounded-full border border-brand-200 bg-brand-50 px-2 py-0.5 text-xs font-bold text-brand-700">{l.badge}</span>}
                     </td>
-                    <td className="px-3 py-4 text-lg font-bold text-emerald-600">{m$(leverValue(part, l))}</td>
-                    <td className="px-3 py-4 text-slate-700">{l.ttv}</td>
-                    <td className="px-3 py-4"><span className={"rounded-full border px-3 py-1 text-xs font-bold " + EFF_TONE[l.eff]}>{l.eff}</span></td>
-                    <td className="px-3 py-4 text-base font-bold text-slate-900">{l.conf}%</td>
-                    <td className="px-3 py-4">
+                    <td className="px-3 py-2 text-lg font-bold text-emerald-600">{m$(leverValue(part, l))}</td>
+                    <td className="px-3 py-2 text-slate-700">{l.ttv}</td>
+                    <td className="px-3 py-2"><span className={"rounded-full border px-3 py-1 text-xs font-bold " + EFF_TONE[l.eff]}>{l.eff}</span></td>
+                    <td className="px-3 py-2 text-base font-bold text-slate-900">{l.conf}%</td>
+                    <td className="px-3 py-2">
                       <button onClick={() => setLever(l)}
                         className={"rounded-lg border px-4 py-1.5 text-sm font-bold transition-colors duration-150 " +
-                          (isSel ? "border-blue-200 bg-blue-50 text-blue-700" : "border-slate-300 bg-white text-slate-700 hover:border-blue-400 hover:bg-blue-50")}>
+                          (isSel ? "border-brand-200 bg-brand-50 text-brand-700" : "border-slate-300 bg-white text-slate-700 hover:border-brand-400 hover:bg-brand-50")}>
                         {isSel ? "Selected" : "Select"}
                       </button>
                     </td>
@@ -1000,8 +976,8 @@ function Agent3({ part, lever, setLever, go, recordAnalysis, approved, setApprov
         </div>
       </Panel>
 
-      <div className="relative overflow-hidden rounded-xl border border-blue-200 bg-blue-50 p-5 shadow-sm">
-        <div className="absolute -right-12 top-4 rotate-45 bg-blue-600 px-12 py-1 text-xs font-bold text-white">OPTIMAL CHOICE</div>
+      <div className="relative overflow-hidden rounded-xl border border-brand-200 bg-brand-50 p-4 shadow-sm">
+        <div className="absolute -right-12 top-4 rotate-45 bg-brand-600 px-12 py-1 text-xs font-bold text-white">OPTIMAL CHOICE</div>
         <Badge>AI Recommendation Insight</Badge>
         <div className="mt-3 flex flex-wrap items-end justify-between gap-3">
           <h3 className="text-[22px] font-bold text-slate-900">Selected Lever: {sel.name}</h3>
@@ -1014,7 +990,7 @@ function Agent3({ part, lever, setLever, go, recordAnalysis, approved, setApprov
           {[["Expected Savings", m$(leverValue(part, sel)), "text-emerald-600"], ["Timeline", sel.ttv, "text-slate-900"],
             ["Engineering Effort", sel.eff.charAt(0) + sel.eff.slice(1).toLowerCase(), "text-amber-600"],
             ["Domain Risk Mitigated", d.risk, "text-slate-900"]].map(([l, v, c]) => (
-            <div key={l} className="rounded-xl border border-blue-200 bg-white p-3">
+            <div key={l} className="rounded-xl border border-brand-200 bg-white p-3">
               <div className="text-xs text-slate-500">{l}</div>
               <div className={"mt-1 font-bold " + c}>{v}</div>
             </div>
@@ -1037,6 +1013,7 @@ function Agent3({ part, lever, setLever, go, recordAnalysis, approved, setApprov
         data={negotiation.data}
         onGenerate={handleGenerateBrief}
         generateLabel="Generate AI Negotiation Strategy"
+        regenerateInApprovalPanel
         idleHint="Generate an executive summary, negotiation objective, target/walk-away price, BATNA, supplier behaviour analysis, objections & responses, strategy, savings, risks, fallback and confidence score."
         copyText={(d) => d && [
           "Executive Summary: " + d.executiveSummary,
@@ -1047,6 +1024,16 @@ function Agent3({ part, lever, setLever, go, recordAnalysis, approved, setApprov
           "Expected Savings: " + d.expectedSavings,
           "Fallback: " + d.fallbackStrategy,
         ].join("\n")}
+        summary={(d) => (
+          <div className="space-y-3">
+            <p className="text-sm leading-relaxed text-slate-700">{d.executiveSummary}</p>
+            <div className="grid grid-cols-3 gap-2">
+              <AIStat label="Target Price" value={"$" + d.targetPrice} tone="text-emerald-600" />
+              <AIStat label="Walk-Away" value={"$" + d.walkAwayPrice} tone="text-amber-600" />
+              <AIStat label="Expected Savings" value={d.expectedSavings} tone="text-brand-600" />
+            </div>
+          </div>
+        )}
         renderContent={(d) => (
           <div className="space-y-3">
             <AISection icon="📋" label="Executive Summary">{d.executiveSummary}</AISection>
@@ -1055,14 +1042,14 @@ function Agent3({ part, lever, setLever, go, recordAnalysis, approved, setApprov
             <div className="grid gap-3 md:grid-cols-3">
               <AIStat label="Target Price" value={"$" + d.targetPrice} tone="text-emerald-600" />
               <AIStat label="Walk-Away Price" value={"$" + d.walkAwayPrice} tone="text-amber-600" />
-              <AIStat label="Expected Savings" value={d.expectedSavings} tone="text-blue-600" />
+              <AIStat label="Expected Savings" value={d.expectedSavings} tone="text-brand-600" />
             </div>
 
             <AISection icon="🔀" label="BATNA (Best Alternative)">{d.batna}</AISection>
             <AISection icon="🕵️" label="Supplier Behaviour Analysis">{d.supplierBehaviourAnalysis}</AISection>
 
             <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <div className="text-xs font-bold uppercase tracking-wider text-blue-600">💬 Objections &amp; Suggested Responses</div>
+              <div className="text-xs font-bold uppercase tracking-wider text-brand-600">💬 Objections &amp; Suggested Responses</div>
               <div className="mt-3 space-y-3">
                 {(d.likelyObjections || []).map((obj, i) => (
                   <div key={i} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
@@ -1099,24 +1086,15 @@ function Agent3({ part, lever, setLever, go, recordAnalysis, approved, setApprov
         <NextStepCard text="Prepare executive approval." actionLabel="Open Agent 4" onAction={() => go(4)} />
       )}
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <button onClick={() => setModal(true)} className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-blue-400 hover:bg-blue-50">
-          View Detailed Rationale
-        </button>
-        <div className="text-right">
-          <button onClick={() => go(4)} disabled={!approved}
-            className={"rounded-lg px-6 py-2.5 font-semibold text-white shadow-sm transition-colors duration-150 " + (approved ? "bg-blue-600 hover:bg-blue-700" : "cursor-not-allowed bg-slate-300")}>
-            Generate Execution Plan &rarr; Move to Agent 4
-          </button>
-          {!approved && <p className="mt-1 text-xs text-slate-500">Generate the AI negotiation strategy above and approve it to continue.</p>}
-        </div>
-      </div>
+      <button onClick={() => setModal(true)} className="rounded-lg border border-slate-300 bg-white px-5 py-2 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-brand-400 hover:bg-brand-50">
+        View Detailed Rationale
+      </button>
 
       {modal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4" onClick={() => setModal(false)}>
           <div className="max-w-2xl rounded-xl border border-slate-200 bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
             <h3 className="text-[22px] font-bold text-slate-900">Lever Decision Analysis: {part.name}</h3>
-            <p className="mt-1 text-slate-500">Deep-dive rationale for selecting <b className="text-blue-700">{sel.name}</b> under <b className="text-blue-700">{d.label}</b>.</p>
+            <p className="mt-1 text-slate-500">Deep-dive rationale for selecting <b className="text-brand-700">{sel.name}</b> under <b className="text-brand-700">{d.label}</b>.</p>
             <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
               <div className="text-sm font-bold uppercase tracking-wider text-slate-500">Case Domain &amp; Risk</div>
               <p className="mt-1 text-slate-700">{d.label} &middot; Risk: {d.risk}</p>
@@ -1124,10 +1102,10 @@ function Agent3({ part, lever, setLever, go, recordAnalysis, approved, setApprov
             <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
               <div className="text-sm font-bold uppercase tracking-wider text-slate-500">Strategy Rationale</div>
               <p className="mt-1 text-slate-700">
-                Supplier quote (${part.price}) exceeds Should-Cost baseline (${part.shouldCost}) by {part.gapPct}%. Executing <b className="text-blue-700">{sel.name}</b> under lead owner <b className="text-slate-900">{OWNERS[sel.key]}</b> captures target savings cleanly.
+                Supplier quote (${part.price}) exceeds Should-Cost baseline (${part.shouldCost}) by {part.gapPct}%. Executing <b className="text-brand-700">{sel.name}</b> under lead owner <b className="text-slate-900">{OWNERS[sel.key]}</b> captures target savings cleanly.
               </p>
             </div>
-            <button onClick={() => setModal(false)} className="mt-4 w-full rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-blue-400 hover:bg-blue-50">Close Details</button>
+            <button onClick={() => setModal(false)} className="mt-4 w-full rounded-lg border border-slate-300 bg-white px-5 py-2 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-brand-400 hover:bg-brand-50">Close Details</button>
           </div>
         </div>
       )}
@@ -1144,7 +1122,7 @@ function playbook(part, l) {
     comm: { title: "Commercial Negotiation Execution Playbook", pill: "TARGET PRICE: $" + part.shouldCost + " / UNIT",
       paramsTitle: "\uD83C\uDFAF Pricing Parameters & Guardrails",
       params: [["Current Quote", "$" + part.price, "text-slate-900"], ["Target Negotiation Price", "$" + part.shouldCost, "text-emerald-600"],
-        ["Walk-Away Limit Price", "$" + walk, "text-amber-600"], ["Expected Annual Savings", m$(val), "text-blue-600"]],
+        ["Walk-Away Limit Price", "$" + walk, "text-amber-600"], ["Expected Annual Savings", m$(val), "text-brand-600"]],
       argsTitle: "\uD83D\uDCAC AI Key Negotiation Arguments",
       args: [`Supplier quote is ${part.gapPct}% higher than AI benchmark should-cost model ($${part.shouldCost}).`,
         `Case domain benchmark targets commercial savings of ${d.comm}.`,
@@ -1156,7 +1134,7 @@ function playbook(part, l) {
     vave: { title: "VAVE Engineering Redesign Execution Playbook", pill: "TARGET UNIT COST: $" + Math.round(part.shouldCost * 0.92),
       paramsTitle: "\uD83C\uDFAF Design Parameters & Guardrails",
       params: [["Current Unit Cost", "$" + part.price, "text-slate-900"], ["Post-Redesign Target", "$" + Math.round(part.shouldCost * 0.92), "text-emerald-600"],
-        ["Qualification Budget", "$180k", "text-amber-600"], ["Expected Annual Savings", m$(val), "text-blue-600"]],
+        ["Qualification Budget", "$180k", "text-amber-600"], ["Expected Annual Savings", m$(val), "text-brand-600"]],
       argsTitle: "\uD83D\uDCAC AI Key Redesign Arguments",
       args: [`Teardown benchmarks show lighter geometry achieving the same function in ${d.label}.`,
         `Case domain benchmark targets VAVE savings of ${d.vave}.`,
@@ -1169,7 +1147,7 @@ function playbook(part, l) {
     supp: { title: "Supplier Resourcing / Change Execution Playbook", pill: "TARGET LANDED COST: $" + Math.round(part.shouldCost * 0.97),
       paramsTitle: "\uD83C\uDFAF Sourcing Parameters & Guardrails",
       params: [["Incumbent Quote", "$" + part.price, "text-slate-900"], ["Target Landed Cost", "$" + Math.round(part.shouldCost * 0.97), "text-emerald-600"],
-        ["Switching & Tooling Cost", "$420k", "text-amber-600"], ["Expected Annual Savings", m$(val), "text-blue-600"]],
+        ["Switching & Tooling Cost", "$420k", "text-amber-600"], ["Expected Annual Savings", m$(val), "text-brand-600"]],
       argsTitle: "\uD83D\uDCAC AI Key Sourcing Arguments",
       args: ["Three alternate sources qualified on capability, capacity and financial health.",
         `Dual-sourcing removes the concentration exposure flagged as ${d.risk}.`,
@@ -1182,7 +1160,7 @@ function playbook(part, l) {
     frt: { title: "Freight & Logistics Optimization Playbook", pill: "TARGET LANE SAVING: " + m$(val),
       paramsTitle: "\uD83C\uDFAF Lane Parameters & Guardrails",
       params: [["Current Lane", "Spot booked", "text-slate-900"], ["Recommended Lane", "12-month contracted", "text-emerald-600"],
-        ["Transit Change", "+0 days", "text-amber-600"], ["Expected Annual Savings", m$(val), "text-blue-600"]],
+        ["Transit Change", "+0 days", "text-amber-600"], ["Expected Annual Savings", m$(val), "text-brand-600"]],
       argsTitle: "\uD83D\uDCAC AI Key Logistics Arguments",
       args: ["Inbound freight is bought on spot, so the rate resets on every booking.",
         "Contracting the lane fixes the rate without lengthening transit.",
@@ -1225,7 +1203,7 @@ function formatEmailText(d) {
   ].join("\n");
 }
 
-function Agent4({ part, lever, go, toast }) {
+function Agent4({ part, lever, go, toast, approved, setApproved }) {
   const pb = playbook(part, lever);
   const d = DOM[part.domain];
 
@@ -1239,6 +1217,7 @@ function Agent4({ part, lever, go, toast }) {
   }, [emailAI.status, emailAI.data]);
 
   function handleGenerateEmail() {
+    setApproved(false);
     emailAI.generate({
       partName: part.name,
       domain: d.label,
@@ -1256,14 +1235,19 @@ function Agent4({ part, lever, go, toast }) {
     navigator.clipboard?.writeText(emailDraft).then(() => toast("Email copied to clipboard."));
   }
 
-  async function sendEmail() {
+  // Sending is gated behind the "Executive Review" approval panel below —
+  // this is only ever invoked from that panel's Approve & Send action, never
+  // directly, so the email cannot go out without an explicit human decision.
+  async function handleApproveAndSend() {
     if (!emailDraft) return;
+    if (!emailTo) { toast("Enter a recipient email address before approving & sending."); return; }
     setSending(true);
     try {
       const subjectMatch = emailDraft.match(/^Subject:\s*(.+)$/mi);
       const subject = subjectMatch ? subjectMatch[1].trim() : `TerraMind Update: ${part.name}`;
       await sendExecutiveEmail({ toEmail: emailTo, subject, message: emailDraft });
       toast("Executive email sent.");
+      setApproved(true);
     } catch (error) {
       toast(error.message || "Unable to send the email right now.");
     } finally {
@@ -1298,11 +1282,14 @@ function Agent4({ part, lever, go, toast }) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <Panel>
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <AgentTag n="4" label="Execution Planner Agent" />
+            <div className="flex flex-wrap items-center gap-2">
+              <AgentTag n="4" label="Execution Planner Agent" />
+              <AgentRoleBadge n={4} />
+            </div>
             <h2 className="mt-4 text-[32px] font-bold tracking-tight text-slate-900">Execution Roadmap &amp; Action Playbook</h2>
             <p className="mt-1 text-slate-500">
               Converting chosen strategy into actionable execution workflow for <b className="text-slate-700">{part.name}</b> ({d.label}).
@@ -1318,9 +1305,9 @@ function Agent4({ part, lever, go, toast }) {
           <Badge tone="blue">{pb.pill}</Badge>
         </div>
 
-        <div className="mt-5 grid gap-4 lg:grid-cols-2">
+        <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <h4 className="text-lg font-bold text-blue-600">{pb.paramsTitle}</h4>
+            <h4 className="text-lg font-bold text-brand-600">{pb.paramsTitle}</h4>
             <div className="mt-3 grid grid-cols-2 gap-3">
               {pb.params.map(([l, v, c]) => (
                 <div key={l} className="rounded-xl border border-slate-200 bg-slate-50 p-3">
@@ -1332,23 +1319,23 @@ function Agent4({ part, lever, go, toast }) {
           </div>
 
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <h4 className="text-lg font-bold text-blue-600">{pb.argsTitle}</h4>
+            <h4 className="text-lg font-bold text-brand-600">{pb.argsTitle}</h4>
             <ul className="mt-3 space-y-2">
               {pb.args.map((a, i) => (
-                <li key={i} className="flex gap-2 text-slate-600"><span className="text-blue-600">&#9656;</span><span>{a}</span></li>
+                <li key={i} className="flex gap-2 text-slate-600"><span className="text-brand-600">&#9656;</span><span>{a}</span></li>
               ))}
             </ul>
           </div>
 
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <h4 className="text-lg font-bold text-blue-600">{pb.peopleTitle}</h4>
+            <h4 className="text-lg font-bold text-brand-600">{pb.peopleTitle}</h4>
             <div className="mt-3 space-y-1 text-slate-600">
               {pb.people.map(([l, v]) => <div key={l}>{l}: <b className="text-slate-900">{v}</b></div>)}
             </div>
           </div>
 
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <h4 className="text-lg font-bold text-blue-600">{"\uD83D\uDCC5"} Execution Timeline</h4>
+            <h4 className="text-lg font-bold text-brand-600">{"\uD83D\uDCC5"} Execution Timeline</h4>
             <div className="mt-3 space-y-1 text-slate-600">{pb.timeline.map((t) => <div key={t}>{t}</div>)}</div>
           </div>
         </div>
@@ -1362,7 +1349,17 @@ function Agent4({ part, lever, go, toast }) {
         data={emailAI.data}
         onGenerate={handleGenerateEmail}
         generateLabel="Generate Executive Email"
+        regenerateInApprovalPanel
         idleHint="Generate subject, executive summary, business context, decision taken, expected savings, timeline, required approvals, next steps, risk statement and action items."
+        summary={(d) => (
+          <div className="space-y-3">
+            <p className="text-sm leading-relaxed text-slate-700">{d.executiveSummary}</p>
+            <div className="grid grid-cols-2 gap-2">
+              <AIStat label="Expected Savings" value={d.expectedSavings} tone="text-emerald-600" />
+              <AIStat label="Timeline" value={d.timeline} tone="text-brand-600" />
+            </div>
+          </div>
+        )}
         renderContent={(d) => (
           <div className="space-y-3">
             <AISection icon="\u2709\uFE0F" label="Subject">{d.subject}</AISection>
@@ -1373,7 +1370,7 @@ function Agent4({ part, lever, go, toast }) {
             </div>
             <div className="grid gap-3 md:grid-cols-2">
               <AIStat label="Expected Savings" value={d.expectedSavings} tone="text-emerald-600" />
-              <AIStat label="Timeline" value={d.timeline} tone="text-blue-600" />
+              <AIStat label="Timeline" value={d.timeline} tone="text-brand-600" />
             </div>
             <AISection icon="\uD83D\uDD8B\uFE0F" label="Required Approvals"><AIBulletList items={d.requiredApprovals} /></AISection>
             <AISection icon="\u27A1\uFE0F" label="Next Steps"><AIBulletList items={d.nextSteps} /></AISection>
@@ -1389,46 +1386,106 @@ function Agent4({ part, lever, go, toast }) {
           <h3 className="text-base font-bold text-slate-900">Review &amp; Send</h3>
           <p className="text-sm text-slate-500">Edit the draft below before copying or sending.</p>
           <input value={emailTo} onChange={(e) => setEmailTo(e.target.value)} placeholder="Recipient email address"
-            className="mt-3 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-colors duration-150 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" />
+            className="mt-3 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-colors duration-150 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100" />
           <textarea value={emailDraft} onChange={(e) => setEmailDraft(e.target.value)} rows={12}
-            className="mt-3 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-colors duration-150 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100" />
+            className="mt-3 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-colors duration-150 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100" />
           <div className="mt-3 flex flex-wrap gap-3">
-            <button onClick={copyEmail} className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-blue-400 hover:bg-blue-50">
+            <button onClick={copyEmail} className="rounded-lg border border-slate-300 bg-white px-5 py-2 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-brand-400 hover:bg-brand-50">
               {"\uD83D\uDCCB"} Copy Email
-            </button>
-            <button onClick={sendEmail} disabled={sending || !emailTo}
-              className="flex items-center gap-2 rounded-lg bg-emerald-600 px-5 py-2.5 font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50">
-              {sending && <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />}
-              {sending ? "Sending\u2026" : "\uD83D\uDCE4 Send Email"}
             </button>
           </div>
         </Panel>
       )}
 
-      <div className="flex flex-wrap justify-between gap-3">
-        <div className="flex flex-wrap gap-3">
-          <button onClick={() => go(3)} className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-blue-400 hover:bg-blue-50">
-            &larr; Back to Agent 3
-          </button>
-          <button onClick={download} className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-blue-400 hover:bg-blue-50">
-            {"\uD83D\uDCC4"} Download {lever.name} Playbook
-          </button>
-        </div>
-        <button onClick={() => go(5)} className="rounded-lg bg-blue-600 px-6 py-2.5 font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-blue-700">
-          Track Impact &rarr; Move to Agent 5
-        </button>
-      </div>
+      {emailDraft && emailAI.status !== "thinking" && (
+        <HumanApprovalPanel
+          title="Executive Review"
+          approved={approved}
+          approveLabel={sending ? "Sending\u2026" : "Approve & Send"}
+          onApprove={handleApproveAndSend}
+          regenerateLabel="Regenerate Draft"
+          onRegenerate={() => { setEmailDraft(""); handleGenerateEmail(); }}
+          cancelLabel="Cancel"
+          onCancel={() => go(3)}
+        >
+          Review the draft above. Sending only happens after an executive approves it here \u2014 the email is never sent automatically.
+        </HumanApprovalPanel>
+      )}
+
+      {approved && (
+        <NextStepCard text="Monitor implementation." actionLabel="Open Agent 5" onAction={() => go(5)} />
+      )}
+
+      <button onClick={download} className="rounded-lg border border-slate-300 bg-white px-5 py-2 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-brand-400 hover:bg-brand-50">
+        {"\uD83D\uDCC4"} Download {lever.name} Playbook
+      </button>
     </div>
   );
 }
 
 // ═══════════════════════ AGENT 5 · TRANSFORMATION MONITOR ══════════════
-function Agent5({ part, lever, saved, save, removeSaved, forecast, achieved, go, toast }) {
+function Agent5({ part, lever, saved, save, removeSaved, forecast, achieved, go, toast, analyses, metrics, editAnalysis }) {
   const savedThis = saved.some((s) => s.partId === part.id);
-  const funnel = [["Ideas Generated", 2100, "bg-blue-700", 100], ["Prioritized Opportunities", 420, "bg-blue-500", 80],
+  const d = DOM[part.domain];
+
+  // "Before final completion" gate — resets whenever a new part/lever pair
+  // arrives at Agent 5 so a stale confirmation from a prior case can't carry
+  // over. This is the human decision that triggers the closed-loop write
+  // (Section 4): realized savings only ever get recorded into analysis
+  // history from this explicit approval, never automatically.
+  const [savingsConfirmed, setSavingsConfirmed] = React.useState(false);
+  React.useEffect(() => { setSavingsConfirmed(false); }, [part.id, lever.key]);
+
+  // Most recent Agent 3 analysis record for this exact part + lever — the
+  // record this confirmation patches with realized-savings fields.
+  const matchingAnalysis = React.useMemo(
+    () => analyses.find((a) => a.partName === part.name && a.selectedLever === lever.name),
+    [analyses, part.name, lever.name]
+  );
+
+  function handleConfirmSavings() {
+    const realizedM = +leverValue(part, lever).toFixed(2);
+    if (matchingAnalysis) {
+      editAnalysis?.(matchingAnalysis.analysisId, {
+        realizedSavings: realizedM,
+        implementationDate: new Date().toISOString(),
+        supplier: part.supplier,
+        commodity: d.label,
+        selectedLever: lever.name,
+        actualSavings: realizedM,
+      });
+    }
+    setSavingsConfirmed(true);
+    toast("Savings realized — fed back into Executive Intelligence as historical context.");
+  }
+
+  // Governance panel (Section 6) — every figure is derived from existing
+  // analysis history / session data, no new persistence or endpoint.
+  const governance = React.useMemo(() => {
+    const savingsValidated = analyses.filter((a) => a.realizedSavings != null).length;
+    const supplierChangesApproved = analyses.filter((a) => a.selectedLever === "Supplier Resourcing / Change").length;
+    const vaveIdeasImplemented = analyses.filter((a) => a.selectedLever === "VAVE Engineering Redesign" && a.realizedSavings != null).length;
+    return {
+      aiRecommendationsGenerated: analyses.length,
+      // Every record in history only exists because a human approved it in
+      // Agent 3 (see recordAnalysis in Agent3) — so record count *is* the
+      // human-approval count, not a separate tally.
+      humanApprovalsCompleted: analyses.length,
+      savingsValidated,
+      supplierChangesApproved,
+      vaveIdeasImplemented,
+      confidenceAverage: metrics.averageConfidence,
+    };
+  }, [analyses, metrics.averageConfidence]);
+
+  // Executive Outcome (Section 8) — portfolio-wide summary by lever type,
+  // plus this case's domain risk / implementation status.
+  const commercialSavingsM = analyses.filter((a) => a.selectedLever === "Commercial Negotiation").reduce((s, a) => s + (Number(a.expectedSavings) || 0), 0);
+  const vaveSavingsM = analyses.filter((a) => a.selectedLever === "VAVE Engineering Redesign").reduce((s, a) => s + (Number(a.expectedSavings) || 0), 0);
+  const funnel = [["Ideas Generated", 2100, "bg-brand-700", 100], ["Prioritized Opportunities", 420, "bg-brand-500", 80],
     ["Approved & Saved Processes", 168 + saved.length, "bg-teal-500", 62], ["Implemented & Realized", 73, "bg-emerald-600", 44]];
-  const initiatives = [["Commercial Negotiations", 18, 20, "text-emerald-600"], ["VAVE Engineering Projects", 12, 15, "text-blue-600"],
-    ["Supplier Resourcing Changes", 6, 8, "text-blue-600"]];
+  const initiatives = [["Commercial Negotiations", 18, 20, "text-emerald-600"], ["VAVE Engineering Projects", 12, 15, "text-brand-600"],
+    ["Supplier Resourcing Changes", 6, 8, "text-brand-600"]];
   const summary = [
     "Negotiation initiatives are progressing ahead of schedule with 90% completion across high-priority parts.",
     "VAVE implementation remains on target with zero engineering hold-ups reported across all 6 case domains ($630M spend pool).",
@@ -1457,33 +1514,36 @@ function Agent5({ part, lever, saved, save, removeSaved, forecast, achieved, go,
     toast(name + " downloaded.");
   }
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <Panel>
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <AgentTag n="5" label="Transformation Monitor Agent" />
+            <div className="flex flex-wrap items-center gap-2">
+              <AgentTag n="5" label="Transformation Monitor Agent" />
+              <AgentRoleBadge n={5} />
+            </div>
             <h2 className="mt-4 text-[32px] font-bold tracking-tight text-slate-900">Business Impact &amp; Process Finalization</h2>
             <p className="mt-1 text-slate-500">
               Review outcomes for <b className="text-slate-700">{part.name}</b> and click <b className="text-slate-900">"Save Process"</b> to update annual savings forecast.
             </p>
           </div>
           <button onClick={save} disabled={savedThis}
-            className={"rounded-lg px-6 py-2.5 font-semibold text-white shadow-sm transition-colors duration-150 " + (savedThis ? "bg-emerald-300 cursor-not-allowed" : "bg-emerald-600 hover:bg-emerald-700")}>
+            className={"rounded-lg px-6 py-2 font-semibold text-white shadow-sm transition-colors duration-150 " + (savedThis ? "bg-emerald-300 cursor-not-allowed" : "bg-emerald-600 hover:bg-emerald-700")}>
             {"\uD83D\uDCBE"} {savedThis ? "Process Saved" : "Save Process"}
           </button>
         </div>
       </Panel>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-3">
         <Panel><div className="text-base font-medium text-slate-500">Annual Savings Target</div>
           <div className="mt-2 text-4xl font-bold text-slate-900">$36.5M</div>
           <div className="mt-1 text-sm text-slate-500">Board Approved Baseline Target</div></Panel>
         <Panel><div className="text-base font-medium text-slate-500">Achieved Realized Savings (YTD)</div>
           <div className="mt-2 text-4xl font-bold text-emerald-600">{m$(achieved)}</div>
           <div className="mt-1 text-sm text-slate-500">Physical Implementation Verified Baseline</div></Panel>
-        <Panel className="border-blue-200"><div className="text-base font-medium text-slate-500">Annual Forecast (Updated Live)</div>
-          <div className="mt-2 text-4xl font-bold text-blue-600">{m$(forecast)}</div>
-          <div className="mt-1 text-sm text-blue-600">Updates whenever a process is saved!</div></Panel>
+        <Panel className="border-brand-200"><div className="text-base font-medium text-slate-500">Annual Forecast (Updated Live)</div>
+          <div className="mt-2 text-4xl font-bold text-brand-600">{m$(forecast)}</div>
+          <div className="mt-1 text-sm text-brand-600">Updates whenever a process is saved!</div></Panel>
       </div>
 
       <Panel>
@@ -1506,7 +1566,7 @@ function Agent5({ part, lever, saved, save, removeSaved, forecast, achieved, go,
         </div>
       </Panel>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2">
         <Panel>
           <h3 className="text-lg font-bold text-slate-900">Transformation Funnel Progress</h3>
           <p className="text-sm text-slate-500">Idea generation to value realization ($630M total spend pool)</p>
@@ -1527,7 +1587,7 @@ function Agent5({ part, lever, saved, save, removeSaved, forecast, achieved, go,
               <div key={l}>
                 <div className="flex justify-between"><span className="font-bold text-slate-900">{l}</span><span className={"font-bold " + c}>{a} / {b} Complete</span></div>
                 <div className="mt-2 h-2 overflow-hidden rounded-full bg-slate-200">
-                  <div className="h-2 bg-blue-600" style={{ width: (a / b) * 100 + "%" }} />
+                  <div className="h-2 bg-brand-600" style={{ width: (a / b) * 100 + "%" }} />
                 </div>
               </div>
             ))}
@@ -1545,13 +1605,23 @@ function Agent5({ part, lever, saved, save, removeSaved, forecast, achieved, go,
         generateLabel="Generate AI Report"
         idleHint="Generate a transformation summary, portfolio health, savings achieved/forecast, risks, success stories, open actions, executive recommendations and next-quarter priorities."
         copyText={(d) => d && [d.transformationSummary, "", "Portfolio Health: " + d.portfolioHealth].join("\n")}
+        summary={(d) => (
+          <div className="space-y-3">
+            <p className="text-sm leading-relaxed text-slate-700">{d.transformationSummary}</p>
+            <div className="grid grid-cols-3 gap-2">
+              <AIStat label="Portfolio Health" value={d.portfolioHealth} tone="text-brand-600" />
+              <AIStat label="Savings Achieved" value={d.savingsAchieved} tone="text-emerald-600" />
+              <AIStat label="Savings Forecast" value={d.savingsForecast} tone="text-brand-600" />
+            </div>
+          </div>
+        )}
         renderContent={(d) => (
           <div className="space-y-3">
             <AISection icon="📋" label="Transformation Summary">{d.transformationSummary}</AISection>
             <div className="grid gap-3 md:grid-cols-3">
-              <AIStat label="Portfolio Health" value={d.portfolioHealth} tone="text-blue-600" />
+              <AIStat label="Portfolio Health" value={d.portfolioHealth} tone="text-brand-600" />
               <AIStat label="Savings Achieved" value={d.savingsAchieved} tone="text-emerald-600" />
-              <AIStat label="Savings Forecast" value={d.savingsForecast} tone="text-blue-600" />
+              <AIStat label="Savings Forecast" value={d.savingsForecast} tone="text-brand-600" />
             </div>
             <div className="grid gap-3 md:grid-cols-2">
               <AISection icon="⚠️" label="Risks"><AIBulletList items={d.risks} /></AISection>
@@ -1564,32 +1634,86 @@ function Agent5({ part, lever, saved, save, removeSaved, forecast, achieved, go,
         )}
       />
 
-      <div className="flex flex-wrap justify-between gap-3">
-        <div className="flex flex-wrap gap-3">
-          <button onClick={() => dl("TerraMind_Executive_Report.txt",
-            ["TERRAMIND \u2014 AI EXECUTIVE SUMMARY REPORT", "=".repeat(60), "",
-             "Annual savings target:  $36.5M", "Achieved realized (YTD): " + m$(achieved), "Annual forecast (live):  " + m$(forecast), "",
-             "SAVED PROCESSES", "-".repeat(60),
-             ...saved.map((s) => "  " + s.part + " | " + s.lever + " | " + s.owner + " | +" + m$(s.value)),
-             "", "EXECUTIVE SUMMARY", "-".repeat(60),
-             ...(report.data
-               ? [report.data.transformationSummary, "", "Portfolio Health: " + report.data.portfolioHealth,
-                  "", "Executive Recommendations:", ...(report.data.executiveRecommendations || []).map((r) => "  - " + r)]
-               : summary.map((s, i) => "  " + (i + 1) + ". " + s)),
-             "", "Booked autonomously by the agent: $0.00"].join("\n"))}
-            className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-blue-400 hover:bg-blue-50">
-            {"\uD83D\uDCC4"} Download Executive Report
-          </button>
-          <button onClick={() => dl("TerraMind_Monthly_Review.csv",
-            "Part,Domain,Strategy,Owner,Saving ($M),Saved At\n" +
-            saved.map((s) => [s.part, s.domain, s.lever, s.owner, s.value.toFixed(2), s.when].join(",")).join("\n"))}
-            className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-blue-400 hover:bg-blue-50">
-            {"\uD83D\uDCCA"} Export Monthly Review
-          </button>
+      <HumanApprovalPanel
+        title="Savings Validation"
+        approved={savingsConfirmed}
+        approveLabel="Confirm Savings Realized"
+        onApprove={handleConfirmSavings}
+        cancelLabel="Return for Review"
+        onCancel={() => go(4)}
+      >
+        Confirm the forecast savings for <b>{part.name}</b> ({lever.name}) were physically realized before this outcome feeds back into Executive Intelligence as historical context for future briefs.
+      </HumanApprovalPanel>
+
+      <Panel>
+        <h3 className="text-lg font-bold text-slate-900">Governance</h3>
+        <p className="text-sm text-slate-500">Human-in-the-loop oversight across the full analysis history — every figure below reflects an actual human decision, not an AI action taken alone.</p>
+        <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3">
+          {[["AI Recommendations Generated", governance.aiRecommendationsGenerated, "text-brand-600"],
+            ["Human Approvals Completed", governance.humanApprovalsCompleted, "text-emerald-600"],
+            ["Savings Validated", governance.savingsValidated, "text-emerald-600"],
+            ["Supplier Changes Approved", governance.supplierChangesApproved, "text-brand-600"],
+            ["VAVE Ideas Implemented", governance.vaveIdeasImplemented, "text-brand-600"],
+            ["Confidence Average", governance.confidenceAverage == null ? "—" : governance.confidenceAverage + "%", "text-slate-900"]].map(([l, v, c]) => (
+            <div key={l} className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+              <div className="text-xs text-slate-500">{l}</div>
+              <div className={"mt-1 text-2xl font-bold " + c}>{v}</div>
+            </div>
+          ))}
         </div>
-        <button onClick={() => go(1)} className="rounded-lg bg-blue-600 px-6 py-2.5 font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-blue-700">
-          Start New Analysis &rarr; Loop Back to Agent 1
+      </Panel>
+
+      {savingsConfirmed && (
+        <Panel className="border-emerald-200">
+          <Badge tone="green">Executive Outcome</Badge>
+          <h3 className="mt-2 text-[22px] font-bold text-slate-900">Workflow Summary &mdash; {part.name}</h3>
+          <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+            {[["Structural Savings Achieved", m$(achieved), "text-emerald-600"],
+              ["Target Progress", Math.round((forecast / 36.5) * 100) + "%", "text-brand-600"],
+              ["Supplier Risk", d.risk, "text-slate-900"],
+              ["Implementation Status", "Implemented & Verified", "text-emerald-600"],
+              ["Commercial Savings", m$(commercialSavingsM), "text-emerald-600"],
+              ["VAVE Savings", m$(vaveSavingsM), "text-brand-600"],
+              ["Confidence", governance.confidenceAverage == null ? "—" : governance.confidenceAverage + "%", "text-slate-900"],
+              ["Lessons Learned", report.data?.successStories?.[0] || "Generate the AI Executive Transformation Report above to capture this cycle's lessons learned.", "text-slate-700"]]
+              .map(([l, v, c]) => (
+              <div key={l} className="rounded-xl border border-slate-200 bg-white p-3">
+                <div className="text-xs text-slate-500">{l}</div>
+                <div className={"mt-1 font-bold " + c}>{v}</div>
+              </div>
+            ))}
+          </div>
+        </Panel>
+      )}
+
+      {savingsConfirmed && (
+        <NextStepCard text="Feed realized savings into Executive Intelligence." actionLabel="Return to Agent 1" onAction={() => go(1)} />
+      )}
+
+      <div className="flex flex-wrap gap-3">
+        <button onClick={() => dl("TerraMind_Executive_Report.txt",
+          ["TERRAMIND \u2014 AI EXECUTIVE SUMMARY REPORT", "=".repeat(60), "",
+           "Annual savings target:  $36.5M", "Achieved realized (YTD): " + m$(achieved), "Annual forecast (live):  " + m$(forecast), "",
+           "SAVED PROCESSES", "-".repeat(60),
+           ...saved.map((s) => "  " + s.part + " | " + s.lever + " | " + s.owner + " | +" + m$(s.value)),
+           "", "EXECUTIVE SUMMARY", "-".repeat(60),
+           ...(report.data
+             ? [report.data.transformationSummary, "", "Portfolio Health: " + report.data.portfolioHealth,
+                "", "Executive Recommendations:", ...(report.data.executiveRecommendations || []).map((r) => "  - " + r)]
+             : summary.map((s, i) => "  " + (i + 1) + ". " + s)),
+           "", "Booked autonomously by the agent: $0.00"].join("\n"))}
+          className="rounded-lg border border-slate-300 bg-white px-5 py-2 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-brand-400 hover:bg-brand-50">
+          {"\uD83D\uDCC4"} Download Executive Report
         </button>
+        <button onClick={() => dl("TerraMind_Monthly_Review.csv",
+          "Part,Domain,Strategy,Owner,Saving ($M),Saved At\n" +
+          saved.map((s) => [s.part, s.domain, s.lever, s.owner, s.value.toFixed(2), s.when].join(",")).join("\n"))}
+          className="rounded-lg border border-slate-300 bg-white px-5 py-2 font-semibold text-slate-700 shadow-sm transition-colors duration-150 hover:border-brand-400 hover:bg-brand-50">
+          {"\uD83D\uDCCA"} Export Monthly Review
+        </button>
+        {!savingsConfirmed && (
+          <span className="flex items-center text-xs text-slate-500">Confirm savings realized above to close out this case.</span>
+        )}
       </div>
     </div>
   );
@@ -1604,8 +1728,8 @@ function App() {
   const [analyses, setAnalyses] = React.useState(loadAnalyses);
   const [msg, setMsg] = React.useState("");
   // Per-step human approval flags (Agent 2 = should-cost analysis, Agent 3 =
-  // negotiation strategy). Gates both the in-page "Move to Agent N" buttons
-  // and the sticky AgentNav shortcut — see setStepApproved() below.
+  // negotiation strategy, Agent 4 = executive email). Gates each agent's
+  // "Move to Agent N" action — see setStepApproved() below.
   const [approvals, setApprovals] = React.useState({});
   const toast = (t) => { setMsg(t); setTimeout(() => setMsg(""), 3000); };
   function setStepApproved(step, value) {
@@ -1643,7 +1767,7 @@ function App() {
   function openPartInAgent2(p) { setPart(p); setLever(null); setApprovals({}); setStep(2); }
   // Changing the selected lever invalidates the prior strategy approval —
   // that approval was for the old lever's AI negotiation output.
-  function chooseLever(l) { setLever(l); setStepApproved(3, false); }
+  function chooseLever(l) { setLever(l); setStepApproved(3, false); setStepApproved(4, false); }
   function save() {
     const rec = { id: "s" + Date.now(), partId: part.id, part: part.name, domain: DOM[part.domain].label,
       lever: lever.name, owner: OWNERS[lever.key], when: "Today " + new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }),
@@ -1657,33 +1781,43 @@ function App() {
     ["Agent 3: Decision Intel", "Lever Optimization"], ["Agent 4: Execution Intel", "Action Roadmap"],
     ["Agent 5: Transformation Monitor", "Track & Save Process"]];
 
+  // Agent pages carry a slightly different decorative blob tint so the
+  // purple background reads as "the same product, a different room" rather
+  // than an identical wallpaper on every step. Purely cosmetic.
+  const BLOB_TINTS = ["bg-brand-300", "bg-emerald-200", "bg-emerald-200", "bg-emerald-200", "bg-amber-200"];
+  const blobTint = BLOB_TINTS[step - 1];
+
   return (
-    <div className="min-h-screen bg-slate-50 p-6 font-sans text-slate-700 antialiased">
-      <div className="mx-auto max-w-[1440px]">
-        <header className="mb-6 flex flex-wrap items-center justify-between gap-4">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#F8F5FF] to-[#F3EEFF] p-4 font-sans text-slate-700 antialiased">
+      <div aria-hidden="true" className={"bg-blob left-[-6rem] top-[-6rem] h-80 w-80 opacity-25 " + blobTint} />
+      <div aria-hidden="true" className="bg-blob right-[-8rem] top-40 h-96 w-96 bg-accent opacity-[0.12]" />
+      <div aria-hidden="true" className={"bg-blob bottom-[-8rem] left-1/3 h-96 w-96 opacity-[0.15] " + blobTint} />
+
+      <div className="relative mx-auto max-w-[1440px]">
+        <header className="mb-4 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-2xl font-black text-white shadow-sm">T</div>
-            <div><h1 className="text-[22px] font-bold text-slate-900">TerraMind</h1>
-              <p className="text-sm text-slate-500">AI Cost Transformation Engine v3.4</p></div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-xl font-black text-white shadow-glow">T</div>
+            <div><h1 className="text-lg font-bold text-slate-900">TerraMind</h1>
+              <p className="text-xs text-slate-500">AI Cost Transformation Engine v3.4</p></div>
           </div>
           <div className="flex flex-wrap gap-3">
-            {[["Target Savings", "$36.5M", "text-blue-600", "border-slate-200"], ["Achieved YTD", m$(achieved), "text-emerald-600", "border-slate-200"],
-              ["Forecast (Updated Live)", m$(forecast), "text-blue-600", "border-blue-200"], ["Status", forecast >= 36.5 ? "On Track" : "At Risk", "text-emerald-600", "border-slate-200"]].map(([l, v, c, b]) => (
-              <div key={l} className={"rounded-xl border bg-white px-4 py-3 shadow-sm " + b}>
+            {[["Target Savings", "$36.5M", "text-brand-600", "border-l-brand-400"], ["Achieved YTD", m$(achieved), "text-emerald-600", "border-l-emerald-400"],
+              ["Forecast (Updated Live)", m$(forecast), "text-brand-600", "border-l-brand-500"], ["Status", forecast >= 36.5 ? "On Track" : "At Risk", "text-emerald-600", "border-l-emerald-400"]].map(([l, v, c, b]) => (
+              <div key={l} className={"rounded-xl border border-slate-200 border-l-4 bg-white px-3 py-2 shadow-sm " + b}>
                 <div className="text-xs font-medium uppercase tracking-wider text-slate-500">{l}</div>
-                <div className={"text-3xl font-bold leading-tight " + c}>{v}</div>
+                <div className={"text-2xl font-extrabold leading-tight " + c}>{v}</div>
               </div>
             ))}
             <DemoModeToggle />
           </div>
         </header>
 
-        <nav className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+        <nav className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2 shadow-sm">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-base font-bold text-white shadow-sm">{step}</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white shadow-sm">{step}</span>
             <span>
-              <span className="block text-base font-bold text-slate-900">{STEPS[step - 1][0]}</span>
-              <span className="block text-sm text-slate-500">{STEPS[step - 1][1]}</span>
+              <span className="block text-sm font-bold text-slate-900">{STEPS[step - 1][0]}</span>
+              <span className="block text-xs text-slate-500">{STEPS[step - 1][1]}</span>
             </span>
           </div>
           <span className="text-sm font-semibold text-slate-500">Step {step} of 5</span>
@@ -1696,14 +1830,13 @@ function App() {
         {step === 2 && part && <Agent2 part={part} go={go} approved={!!approvals[2]} setApproved={(v) => setStepApproved(2, v)} />}
         {step === 3 && part && <Agent3 part={part} lever={lever} setLever={chooseLever} go={go} recordAnalysis={recordAnalysis}
           approved={!!approvals[3]} setApproved={(v) => setStepApproved(3, v)} />}
-        {step === 4 && part && lever && <Agent4 part={part} lever={lever} go={go} toast={toast} />}
+        {step === 4 && part && lever && <Agent4 part={part} lever={lever} go={go} toast={toast}
+          approved={!!approvals[4]} setApproved={(v) => setStepApproved(4, v)} />}
         {step === 5 && part && lever && <Agent5 part={part} lever={lever} saved={saved} save={save} removeSaved={removeSaved}
           forecast={forecast} achieved={achieved} go={go} toast={toast} analyses={analyses} metrics={metrics} editAnalysis={editAnalysis} />}
 
-        <AgentNav step={step} go={go} approvals={approvals} toast={toast} />
-
         {msg && (
-          <div className="fixed bottom-24 left-1/2 z-30 -translate-x-1/2 rounded-lg border border-slate-700 bg-slate-900 px-5 py-3 font-semibold text-white shadow-lg">
+          <div className="fixed bottom-6 left-1/2 z-30 -translate-x-1/2 rounded-lg border border-slate-700 bg-slate-900 px-5 py-3 font-semibold text-white shadow-lg">
             {msg}
           </div>
         )}

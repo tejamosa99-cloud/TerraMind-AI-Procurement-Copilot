@@ -26,7 +26,7 @@ export default function ConfidenceBadge({ score, reasons = [] }) {
           <ul className="mt-2 space-y-1">
             {reasons.map((r, i) => (
               <li key={i} className="flex gap-2 text-sm text-slate-700">
-                <span className="text-blue-500">•</span>
+                <span className="text-brand-500">•</span>
                 <span>{r}</span>
               </li>
             ))}
